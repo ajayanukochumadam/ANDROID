@@ -1,0 +1,339 @@
+package com.example.menudriven;
+
+import android.content.Intent;
+import android.os.Bundle;
+MAINACTIVITY
+
+import com.google.android.material.snackbar.Snackbar;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.view.View;
+
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.AppBarConfiguration;
+import androidx.navigation.ui.NavigationUI;
+
+import com.example.menudriven.databinding.ActivityMainBinding;
+
+import android.view.Menu;
+import android.view.MenuItem;
+
+public class MainActivity extends AppCompatActivity {
+
+    private AppBarConfiguration appBarConfiguration;
+    private ActivityMainBinding binding;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
+        setSupportActionBar(binding.toolbar);
+
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
+        appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
+        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+
+        binding.fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.fa) {
+            Intent i = new Intent(MainActivity.this,Factorial.class);
+            startActivity(i);
+        }
+        else
+            if(id == R.id.pa)
+            {
+                Intent i=new Intent(MainActivity.this,Palindrome.class);
+                startActivity(i);
+            }
+            else
+                if(id==R.id.am)
+                {
+                    Intent i= new Intent(MainActivity.this,Armstrong.class);
+                    startActivity(i);
+                }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
+        return NavigationUI.navigateUp(navController, appBarConfiguration)
+                || super.onSupportNavigateUp();
+    }
+}
+
+FACTORIAL_XML
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Factorial">
+
+    <EditText
+        android:id="@+id/ed1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Number"
+        android:inputType="textPersonName"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        tools:layout_editor_absoluteX="158dp"
+        tools:layout_editor_absoluteY="136dp" />
+
+    <Button
+        android:id="@+id/b1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Factorial"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
+        tools:layout_editor_absoluteX="200dp"
+        tools:layout_editor_absoluteY="283dp" />
+
+    <TextView
+        android:id="@+id/tv"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="200dp"
+        tools:layout_editor_absoluteX="171dp"
+        tools:layout_editor_absoluteY="453dp" />
+</RelativeLayout>
+
+FACTORIAL_JAVA
+package com.example.menudriven;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+
+public class Factorial extends AppCompatActivity {
+EditText e1;
+Button b;
+TextView tv1;
+int fact=1;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_factorial);
+        e1=(EditText)findViewById(R.id.ed1);
+        b=(Button) findViewById(R.id.b1);
+        tv1=(TextView) findViewById(R.id.tv);
+        b.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int num=Integer.parseInt(e1.getText().toString());
+                for(int i=num;i>=1;i--)
+                {
+                    fact=fact*i;
+                }
+                tv1.setText(String.valueOf(fact).toString());
+                fact=1;
+            }
+        });
+
+    }
+}
+
+PALINDROM_XML
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Palindrome">
+
+    <EditText
+        android:id="@+id/ed2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="Num"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
+        tools:layout_editor_absoluteX="186dp"
+        tools:layout_editor_absoluteY="215dp" />
+
+    <Button
+        android:id="@+id/b2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Palindrome"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="150dp"
+        tools:layout_editor_absoluteX="247dp"
+        tools:layout_editor_absoluteY="321dp" />
+</RelativeLayout>
+
+PALINDROME_JAVA
+package com.example.menudriven;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
+public class Palindrome extends AppCompatActivity {
+EditText et1;
+Button bu2;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_palindrome);
+        et1=(EditText) findViewById(R.id.ed2);
+        bu2=(Button) findViewById(R.id.b2);
+        bu2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int numb=Integer.parseInt(et1.getText().toString());
+                int a=numb;
+                int m=0;
+                while(a!=0)
+                {
+                    int rev=a%10;
+                     m=m*10+rev;
+                    a=a/10;
+                }
+                if(m==numb)
+                {
+                    Toast.makeText(getApplicationContext(),"Is pali",Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    Toast.makeText(getApplicationContext(),"Is not pali",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+}
+
+ARMSTRONG_XML
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/am"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Armstrong">
+
+    <EditText
+        android:id="@+id/ed3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
+        android:ems="10"
+        android:hint="Number"
+        android:inputType="textPersonName"
+        tools:layout_editor_absoluteX="163dp"
+        tools:layout_editor_absoluteY="239dp" />
+
+    <Button
+        android:id="@+id/b3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="170dp"
+        android:text="Armstrong"
+        tools:layout_editor_absoluteX="221dp"
+        tools:layout_editor_absoluteY="400dp" />
+
+</RelativeLayout>
+
+ARMSTRONG_JAVA
+
+package com.example.menudriven;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
+public class Armstrong extends AppCompatActivity {
+EditText et3;
+Button bu3;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_armstrong);
+        et3=(EditText) findViewById(R.id.ed3);
+        bu3=(Button) findViewById(R.id.b3);
+        bu3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int numbe=Integer.parseInt(et3.getText().toString());
+                int ar=numbe;
+                int br=numbe;
+                double arm=0;
+                int z=0;
+                while(ar!=0)
+                {
+                    int n=ar%10;
+                     z++;
+                     ar=ar/10;
+                }
+                while(br!=0)
+                {
+                    int w=br%10;
+                    arm=arm+Math.pow(w,z);
+                    br=br/10;
+                }
+                if(arm==numbe)
+                {
+                    Toast.makeText(getApplicationContext(),"Is an armstrong number",Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    Toast.makeText(getApplicationContext(),"Is not an armstrong number",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+}

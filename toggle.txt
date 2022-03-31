@@ -1,0 +1,66 @@
+Toggle image
+MainActivity:
+
+package com.example.passvalue;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.media.Image;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
+
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+final ImageView first_image=(ImageView) this.findViewById(R.id.imageView);
+final ImageView second_image=(ImageView) this.findViewById(R.id.imageView1);
+first_image.setOnClickListener(new View.OnClickListener() {
+    public void onClick(View v) {
+        second_image.setVisibility(View.VISIBLE);
+        first_image.setVisibility(View.GONE);
+    }
+});
+second_image.setOnClickListener(new View.OnClickListener() {
+
+    public void onClick(View v) {
+        first_image.setVisibility(View.VISIBLE);
+        second_image.setVisibility(View.GONE);
+    }
+});
+    }
+}
+
+XML:
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/kitten"
+        android:scaleType="fitXY"/>
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        app:srcCompat="@drawable/dog" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Click to switch image"
+        android:layout_gravity="center_horizontal"
+        android:padding="5dp" />
+
+</FrameLayout>

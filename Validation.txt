@@ -1,0 +1,131 @@
+package com.example.validation;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.util.Patterns;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
+public class MainActivity extends AppCompatActivity {
+EditText et1,et2,et3;
+Button bu1;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        et1=(EditText) findViewById(R.id.ed1);
+        et2=(EditText) findViewById(R.id.ed2);
+        et3=(EditText) findViewById(R.id.ed3);
+        bu1=(Button) findViewById(R.id.b1);
+        bu1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String re="^[A-za-z0-9+]+@(.+)$";
+                String un=et1.getText().toString();
+                String em=et2.getText().toString();
+                String pass=et3.getText().toString();
+                if(un.length()==0)
+
+                {
+                    et1.setError("Name cannot be empty");
+                }
+                else if(em.length()==0)
+                {
+                    et2.setError("This field cannot be empty");
+                }
+                else if(!Patterns.EMAIL_ADDRESS.matcher(em).matches())
+
+                {
+                    et2.setError("invalid");
+                }
+                else if(pass.length()==0)
+                {
+                    et3.setError("This field cannot be empty");
+                }
+                else if(pass.length()<8)
+                {
+                    et3.setError("Should have more than 8 characters");
+                }
+                else
+                {
+                    Toast.makeText(getApplicationContext(),"Successfully logged in",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+}
+
+XML
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <EditText
+        android:id="@+id/ed1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="82dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="119dp"
+        android:layout_marginBottom="108dp"
+        android:ems="10"
+        android:hint="USERNAME"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/ed2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/ed2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="82dp"
+        android:layout_marginEnd="119dp"
+        android:layout_marginBottom="74dp"
+        android:ems="10"
+        android:hint="EMAIL"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/ed3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ed1" />
+
+    <Button
+        android:id="@+id/b1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="150dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="160dp"
+        android:layout_marginBottom="134dp"
+        android:text="LOGIN"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ed3" />
+
+    <EditText
+        android:id="@+id/ed3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="82dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="119dp"
+        android:ems="10"
+        android:hint="PASSWORD"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/b1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ed2" />
+</androidx.constraintlayout.widget.ConstraintLayout>
